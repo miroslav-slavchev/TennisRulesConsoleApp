@@ -1,31 +1,24 @@
 ﻿using Tennis.Strategies.Match;
+using Tennis.Utils;
 
 namespace Tennis
 {
-    public class TennisGame
+    public class TennisGamePanel
     {
-        public Player Player1 { get; private set; }
-
-        public Player Player2 { get; private set; }
-
         public ResultManager ResultManager { get; private set; }
 
-        public TennisGame(Player player1, Player player2, WinMatchStrategy winMatchStrategy)
+        public TennisGamePanel(Player player1, Player player2, WinMatchStrategy winMatchStrategy)
         {
-            Player1 = player1;
-            Player2 = player2;
             ResultManager = new ResultManager(player1, player2, winMatchStrategy);
         }
 
         public void StartTennisGame()
         {
-            Console.WriteLine("Start of the tennis Match.");
-            PrintEnterValidPlayerIndexMessage();
+            PrintLegend();
 
             bool endGame;
             do
             {
-                Console.Write("Enter Scoring Player:");
                 int playerIndex = EnterScoringPlayer();
                 ResultManager.SetScoreToPlayer(playerIndex);
                 Console.WriteLine();
@@ -33,10 +26,21 @@ namespace Tennis
             } while (endGame == false);
         }
 
-        private static void PrintEnterValidPlayerIndexMessage()
+        private static void PrintLegend()
         {
-            Console.WriteLine("Please enter a player index. Valid Player inputs are 1 and 2.");
+            Logger.PrintLineMessage("Start of the tennis Match.");
+            Logger.PrintLineMessage("=============================================================");
+            Logger.PrintLineYellowTextMessage("Yellow messages: Set related info.");
+            Logger.PrintLineGreenTextMessage("Green messages: Game related info.");
+            Logger.PrintLineCyanTextMessage("Cyan messages: Win Point/Game/Set/Match info.");
+            Logger.PrintLineHighLightedMessage("Highlighted messages: Current results info.");
+            Logger.PrintLineMessage("White messages: Enter Player info.");
+            Logger.PrintLineRedTextMessage("Red messages: Entered invalid player index.");
+            PrintEnterValidPlayerIndexMessage();
+            Logger.PrintLineMessage("=============================================================");
         }
+
+        private static void PrintEnterValidPlayerIndexMessage() => Logger.PrintLineRedTextMessage("Please enter a player index. Valid Player inputs are 1 and 2.");
 
         public int EnterScoringPlayer()
         {
@@ -72,6 +76,7 @@ namespace Tennis
         // Move Enter into a separate method for better encapsulation.
         private static string? EnterPlayer()
         {
+            Logger.PrintMessage("Enter Scoring Player:");
             return Console.ReadLine();
         }
     }

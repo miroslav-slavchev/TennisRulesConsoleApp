@@ -3,6 +3,7 @@ using System.Xml;
 using Tennis.Strategies.Game;
 using Tennis.Strategies.Match;
 using Tennis.Strategies.Set;
+using Tennis.Utils;
 
 namespace Tennis
 {
@@ -39,7 +40,7 @@ namespace Tennis
             var currentScorringPlayer = GetPlayerAndOponentByInex(playerIndex).Player;
             var opponent = GetPlayerAndOponentByInex(playerIndex).Opponent;
 
-            PrintInfoMessage($"===Point for {playerIndex}:{currentScorringPlayer.Name}.===");
+            PrintInfoMessage($"Point for {playerIndex}:{currentScorringPlayer.Name}.");
 
             currentScorringPlayer.Score.WinPoint();
             CheckResults(currentScorringPlayer, opponent);
@@ -64,7 +65,7 @@ namespace Tennis
                 if (CurrentPlayerWon)
                 {
                     currentScorringPlayer.Score.WinGame();
-                    PrintInfoMessage($"==={currentScorringPlayer.Name} Won the Game.===");
+                    PrintInfoMessage($"{currentScorringPlayer.Name} Won the Game.");
                     LastGameWinner = currentScorringPlayer;
                     RestartPoints();
                 }
@@ -81,7 +82,7 @@ namespace Tennis
                 if (CurrentPlayerWon)
                 {
                     currentScorringPlayer.Score.WinSet();
-                    PrintInfoMessage($"==={currentScorringPlayer.Name} Won the Set.===");
+                    PrintInfoMessage($"{currentScorringPlayer.Name} Won the Set.");
                     LastSetWinner = currentScorringPlayer;
                     RestartGames();
                 }
@@ -95,7 +96,7 @@ namespace Tennis
             {
                 // The player wins the match
                 Winner = currentScorringPlayer;
-                PrintInfoMessage($"==={currentScorringPlayer.Name} Won the Match.===");
+                PrintInfoMessage($"{currentScorringPlayer.Name} Won the Match.");
             }
             // Else the match continues
         }
@@ -130,17 +131,11 @@ namespace Tennis
 
         private void PrintCurrentScore()
         {
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine($"Current Score is {Player1.Name} - Sets({Player1.Score.Sets}), Games({Player1.Score.Games}), Points({Player1.Score.Points}) : Points({Player2.Score.Points}), Games({Player2.Score.Games}), Sets({Player1.Score.Sets}) - {Player2.Name}");
-            Console.ResetColor();
+            string message = $"Current Score is {Player1.Name} - Sets({Player1.Score.Sets}), Games({Player1.Score.Games}), Points({Player1.Score.Points}) : Points({Player2.Score.Points}), Games({Player2.Score.Games}), Sets({Player1.Score.Sets}) - {Player2.Name}"; 
+            Logger.PrintLineHighLightedMessage(message);
         }
 
-        private void PrintInfoMessage(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(message);
-            Console.ResetColor();
-        }
+        private void PrintInfoMessage(string message) => Logger.PrintLineCyanTextMessage(message);
+        
     }
 }
