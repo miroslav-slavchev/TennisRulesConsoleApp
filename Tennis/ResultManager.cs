@@ -131,7 +131,7 @@ namespace Tennis
 
         private void PrintCurrentScore()
         {
-            string message = $"Current Score is {Player1.Name} - Sets({Player1.Score.Sets}), Games({Player1.Score.Games}), Points({Player1.Score.Points}) : Points({Player2.Score.Points}), Games({Player2.Score.Games}), Sets({Player1.Score.Sets}) - {Player2.Name}"; 
+            string message = $"Current Score is {Player1.Name} - Sets({Player1.Score.Sets}), Games({Player1.Score.Games}), Points({Player1.Score.Points}) : Points({Player2.Score.Points}), Games({Player2.Score.Games}), Sets({Player2.Score.Sets}) - {Player2.Name}"; 
             Logger.PrintLineHighLightedMessage(message);
         }
 
